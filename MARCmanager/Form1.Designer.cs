@@ -55,6 +55,7 @@ namespace MARCmanager
             // openFileDialog
             // 
             this.openFileDialog.Filter = "MARC Files|*.iso2709|All files|*.*";
+            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
             // 
             // saveFileDialog
             // 
@@ -84,7 +85,7 @@ namespace MARCmanager
             // importMARCFileToolStripMenuItem
             // 
             this.importMARCFileToolStripMenuItem.Name = "importMARCFileToolStripMenuItem";
-            this.importMARCFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importMARCFileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.importMARCFileToolStripMenuItem.Text = "Import MARC file...";
             this.importMARCFileToolStripMenuItem.ToolTipText = "Click to import a MARC File";
             this.importMARCFileToolStripMenuItem.Click += new System.EventHandler(this.importMARCFileToolStripMenuItem_Click);
@@ -93,7 +94,7 @@ namespace MARCmanager
             // 
             this.exportToXLSXFileToolStripMenuItem.Enabled = false;
             this.exportToXLSXFileToolStripMenuItem.Name = "exportToXLSXFileToolStripMenuItem";
-            this.exportToXLSXFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToXLSXFileToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.exportToXLSXFileToolStripMenuItem.Text = "Export to XLSX file...";
             this.exportToXLSXFileToolStripMenuItem.ToolTipText = "Click to export the list to an Excel file.";
             this.exportToXLSXFileToolStripMenuItem.Click += new System.EventHandler(this.exportToXLSXFileToolStripMenuItem_Click);
@@ -101,7 +102,7 @@ namespace MARCmanager
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.ToolTipText = "Exits the application";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
