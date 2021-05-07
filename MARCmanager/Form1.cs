@@ -24,17 +24,28 @@ namespace MARCmanager
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                string fromPath = openFileDialog.FileName;
-                myMARC = new FileMARC();
-                myMARC.ImportMARC(fromPath);
-                permanentLocations.Clear();
-                cbPlacements.Items.Clear();
-                cbPlacements.Enabled = false;
-                cbPlacements.Text = "";
-                chkUsePlacementDataFrom.Checked = false;
-                CheckMARCData();
-                UpdateListView("");
-                exportToXLSXFileToolStripMenuItem.Enabled = true;
+                
+                try
+                {
+                    string fromPath = openFileDialog.FileName;
+                    myMARC = new FileMARC();
+                    myMARC.ImportMARC(fromPath);
+                    permanentLocations.Clear();
+                    cbPlacements.Items.Clear();
+                    cbPlacements.Enabled = false;
+                    cbPlacements.Text = "";
+                    chkUsePlacementDataFrom.Checked = false;
+                    CheckMARCData();
+                    UpdateListView("");
+                    exportToXLSXFileToolStripMenuItem.Enabled = true;
+                }
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show($"Oops, there was an unexpected error!\nHere's the error message: {ex.Message}");
+                }
+                
+                
             }
         }
 
@@ -320,7 +331,7 @@ namespace MARCmanager
             UpdateListView(selectedPlacement);
         }
 
-        #endregion
+        
 
         private void exportToXLSXFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -331,5 +342,11 @@ namespace MARCmanager
         {
             Application.Exit();
         }
+
+        private void openFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+        #endregion
     }
 }
