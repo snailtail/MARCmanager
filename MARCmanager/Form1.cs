@@ -49,6 +49,10 @@ namespace MARCmanager
             }
         }
 
+        /// <summary>
+        /// Checks the contents of the MARC data, presents a count of items, 
+        /// and loads unique permanent placement values into the variable permanentLocations.
+        /// </summary>
         private void CheckMARCData()
         {
             marcRecordCount = myMARC.Count;
@@ -73,6 +77,9 @@ namespace MARCmanager
 
         }
 
+        /// <summary>
+        /// Loads the data from permanentLocations into the comboBox.
+        /// </summary>
         private void ReloadPlacement()
         {
             cbPlacements.Items.Clear();
@@ -83,6 +90,10 @@ namespace MARCmanager
             cbPlacements.Enabled = true;
         }
 
+        /// <summary>
+        /// Resets the ListView to the default layout.
+        /// </summary>
+        /// <param name="showPlacement"></param>
         private void InitListView(bool showPlacement=false)
         {
             listViewMain.Items.Clear();
@@ -263,6 +274,9 @@ namespace MARCmanager
         }
 
 
+        /// <summary>
+        /// Presents a Save Dialog, and exports the data to an xlsx-file at the selected path.
+        /// </summary>
         private void exportFile()
         {
             if(saveFileDialog.ShowDialog()==DialogResult.OK)
