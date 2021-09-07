@@ -18,13 +18,13 @@ namespace MARCmanager
         private FileMARC myMARC;
         private List<string> permanentLocations = new List<string>();
         private int marcRecordCount;
-        
+
 
         private void importMARCFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                
+
                 try
                 {
                     string fromPath = openFileDialog.FileName;
@@ -44,8 +44,8 @@ namespace MARCmanager
 
                     MessageBox.Show($"Oops, there was an unexpected error!\nHere's the error message: {ex.Message}");
                 }
-                
-                
+
+
             }
         }
 
@@ -94,7 +94,7 @@ namespace MARCmanager
         /// Resets the ListView to the default layout.
         /// </summary>
         /// <param name="showPlacement"></param>
-        private void InitListView(bool showPlacement=false)
+        private void InitListView(bool showPlacement = false)
         {
             listViewMain.Items.Clear();
             listViewMain.Columns.Clear();
@@ -105,6 +105,8 @@ namespace MARCmanager
             {
                 listViewMain.Columns.Add("placement", "Placement", 150);
             }
+            listViewMain.Columns.Add("col653", "MARC 653", 180);
+            listViewMain.Columns.Add("col655", "MARC 655", 180);
         }
 
         private void UpdateListView(string placementDataFilter)
@@ -117,6 +119,8 @@ namespace MARCmanager
                 Field titleField = record["245"];
                 Field typeField = record["942"];
                 List<Field> locationFields = record.GetFields("952");
+                List<Field> marc653Fields = record.GetFields("653");
+                List<Field> marc655Fields = record.GetFields("655");
 
                 string Author;
                 string CoAuthors = "";
@@ -220,7 +224,7 @@ namespace MARCmanager
                 {
                     if (locationFields[0].IsDataField())
                     {
-                        if (placementDataFilter != null && placementDataFilter !="")
+                        if (placementDataFilter != null && placementDataFilter != "")
                         {
                             if (Placement == "")
                             {
@@ -230,7 +234,7 @@ namespace MARCmanager
                                     Subfield placementData = locationDataField['c'];
                                     if (libraryData.Data == placementDataFilter)
                                     {
-                                        if(placementData!=null)
+                                        if (placementData != null)
                                         {
                                             Placement = placementData.Data == null ? "" : placementData.Data;
                                         }
@@ -238,7 +242,7 @@ namespace MARCmanager
                                         {
                                             Placement = "";
                                         }
-                                        
+
                                     }
                                 }
                             }
@@ -252,6 +256,11 @@ namespace MARCmanager
                 #endregion
 
 
+
+
+
+
+
                 if (Author.EndsWith(","))
                 {
                     Author = Author.Substring(0, Author.Length - 1);
@@ -260,14 +269,71 @@ namespace MARCmanager
                 ListViewItem lvi = new ListViewItem(Author);
                 lvi.SubItems.Add(Title);
                 lvi.SubItems.Add(Type);
-                if (placementDataFilter != null)
+                if (!string.IsNullOrEmpty(placementDataFilter))
                 {
                     lvi.SubItems.Add(Placement);
                 }
+
+
+                #region marc653Field
+                string marc653 = string.Empty;
+                //Placement = "";
+                if (marc653Fields.Count > 0)
+                {
+                    if (marc653Fields[0].IsDataField())
+                    {
+                        foreach (DataField field in marc653Fields)
+                        {
+                            Subfield sub653a = field['a'];
+
+                            if (sub653a != null && sub653a.Data != null)
+                            {
+                                marc653 += $"{sub653a.Data}, ";
+                            }
+                        }
+                    }
+                }
+
+                if (marc653.EndsWith(", "))
+                {
+                    marc653 = marc653.Substring(0, marc653.Length - 2);
+                }
+                lvi.SubItems.Add(marc653);
+
+                #endregion
+
+                #region marc655Field
+                string marc655 = string.Empty;
+                //Placement = "";
+                if (marc655Fields.Count > 0)
+                {
+                    if (marc655Fields[0].IsDataField())
+                    {
+                        foreach (DataField field in marc655Fields)
+                        {
+                            Subfield sub655a = field['a'];
+
+                            if (sub655a != null && sub655a.Data != null)
+                            {
+                                marc655 += $"{sub655a.Data}, ";
+                            }
+                        }
+                    }
+                }
+
+                if (marc655.EndsWith(", "))
+                {
+                    marc655 = marc655.Substring(0, marc655.Length - 2);
+                }
+                lvi.SubItems.Add(marc655);
+
+                #endregion
+
+
                 listViewMain.Items.Add(lvi);
             }
             myMARC.Reset();
-            if(placementDataFilter!="")
+            if (!string.IsNullOrEmpty(placementDataFilter))
             {
                 statusLabel.Text = $"Fetched placement data for all items located in {placementDataFilter} (if they have a placement there...)";
             }
@@ -279,7 +345,7 @@ namespace MARCmanager
         /// </summary>
         private void exportFile()
         {
-            if(saveFileDialog.ShowDialog()==DialogResult.OK)
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string savePath = saveFileDialog.FileName;
                 WriteExcel(savePath);
@@ -293,19 +359,19 @@ namespace MARCmanager
             {
                 int columnCounter = 1;
                 int xlRow = 1;
-                foreach(ColumnHeader col in listViewMain.Columns)
+                foreach (ColumnHeader col in listViewMain.Columns)
                 {
                     ew.Write(col.Text, columnCounter, xlRow);
                     columnCounter++;
                 }
-                
+
                 xlRow++;
-                
-                foreach(ListViewItem item in listViewMain.Items)
+
+                foreach (ListViewItem item in listViewMain.Items)
                 {
                     columnCounter = 0;
                     //ew.Write(item.Text, columnCounter, xlRow);
-                    foreach(ListViewItem.ListViewSubItem subitem in item.SubItems)
+                    foreach (ListViewItem.ListViewSubItem subitem in item.SubItems)
                     {
                         columnCounter++;
                         ew.Write(subitem.Text, columnCounter, xlRow);
@@ -323,10 +389,10 @@ namespace MARCmanager
             InitializeComponent();
         }
 
-     
+
         private void chkUsePlacementDataFrom_CheckedChanged(object sender, EventArgs e)
         {
-            if(chkUsePlacementDataFrom.Checked)
+            if (chkUsePlacementDataFrom.Checked)
             {
                 ReloadPlacement();
             }
@@ -338,14 +404,14 @@ namespace MARCmanager
 
         }
 
-        
+
         private void cbPlacements_SelectedIndexChanged(object sender, EventArgs e)
         {
             string selectedPlacement = cbPlacements.SelectedItem.ToString();
             UpdateListView(selectedPlacement);
         }
 
-        
+
 
         private void exportToXLSXFileToolStripMenuItem_Click(object sender, EventArgs e)
         {

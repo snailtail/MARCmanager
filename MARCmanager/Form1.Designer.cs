@@ -47,6 +47,8 @@ namespace MARCmanager
             this.columnType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnPlacement = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.column653 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column655 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.menuStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -68,7 +70,7 @@ namespace MARCmanager
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(827, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1214, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -135,7 +137,7 @@ namespace MARCmanager
             this.statusStrip.Location = new System.Drawing.Point(0, 743);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.ShowItemToolTips = true;
-            this.statusStrip.Size = new System.Drawing.Size(827, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1214, 22);
             this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 7;
             // 
@@ -150,13 +152,15 @@ namespace MARCmanager
             this.columnAuthor,
             this.columnTitle,
             this.columnType,
-            this.columnPlacement});
+            this.columnPlacement,
+            this.column653,
+            this.column655});
             this.listViewMain.FullRowSelect = true;
             this.listViewMain.GridLines = true;
             this.listViewMain.HideSelection = false;
             this.listViewMain.Location = new System.Drawing.Point(0, 3);
             this.listViewMain.Name = "listViewMain";
-            this.listViewMain.Size = new System.Drawing.Size(827, 689);
+            this.listViewMain.Size = new System.Drawing.Size(1214, 689);
             this.listViewMain.TabIndex = 2;
             this.listViewMain.UseCompatibleStateImageBehavior = false;
             this.listViewMain.View = System.Windows.Forms.View.Details;
@@ -188,14 +192,24 @@ namespace MARCmanager
             this.panel1.Controls.Add(this.listViewMain);
             this.panel1.Location = new System.Drawing.Point(0, 48);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(836, 692);
+            this.panel1.Size = new System.Drawing.Size(1223, 692);
             this.panel1.TabIndex = 8;
+            // 
+            // column653
+            // 
+            this.column653.Text = "MARC 653";
+            this.column653.Width = 180;
+            // 
+            // column655
+            // 
+            this.column655.Text = "MARC 655";
+            this.column655.Width = 180;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(827, 765);
+            this.ClientSize = new System.Drawing.Size(1214, 765);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.cbPlacements);
             this.Controls.Add(this.chkUsePlacementDataFrom);
@@ -235,6 +249,8 @@ namespace MARCmanager
         private System.Windows.Forms.ColumnHeader columnType;
         private System.Windows.Forms.ColumnHeader columnPlacement;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ColumnHeader column653;
+        private System.Windows.Forms.ColumnHeader column655;
     }
 }
 
