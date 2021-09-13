@@ -18,6 +18,7 @@ namespace MARCmanager
         private FileMARC myMARC;
         private List<string> permanentLocations = new List<string>();
         private int marcRecordCount;
+        private int max653;
 
 
         private void importMARCFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -258,14 +259,14 @@ namespace MARCmanager
 
 
 
-
+                #region fix_author_field
 
 
                 if (Author.EndsWith(","))
                 {
                     Author = Author.Substring(0, Author.Length - 1);
                 }
-
+                #endregion
                 ListViewItem lvi = new ListViewItem(Author);
                 lvi.SubItems.Add(Title);
                 lvi.SubItems.Add(Type);
@@ -278,18 +279,28 @@ namespace MARCmanager
                 #region marc653Field
                 string marc653 = string.Empty;
                 //Placement = "";
+                int subjectCounter = 0;
                 if (marc653Fields.Count > 0)
                 {
                     if (marc653Fields[0].IsDataField())
                     {
                         foreach (DataField field in marc653Fields)
                         {
-                            Subfield sub653a = field['a'];
-
-                            if (sub653a != null && sub653a.Data != null)
+                            if(subjectCounter<num653.Value)
                             {
-                                marc653 += $"{sub653a.Data}, ";
+                                Subfield sub653a = field['a'];
+
+                                if (sub653a != null && sub653a.Data != null)
+                                {
+                                    marc653 += $"{sub653a.Data}, ";
+                                    subjectCounter++;
+                                }
                             }
+                            else
+                            {
+                                continue;
+                            }
+                            
                         }
                     }
                 }
@@ -428,5 +439,31 @@ namespace MARCmanager
 
         }
         #endregion
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void num653_ValueChanged(object sender, EventArgs e)
+        {
+            max653 = (int)num653.Value;
+            if(myMARC!=null)
+            {
+                if (cbPlacements.SelectedIndex == -1 && myMARC != null)
+                {
+                    UpdateListView("");
+                }
+                else
+                {
+                    string selectedPlacement = cbPlacements.SelectedItem.ToString();
+                    UpdateListView(selectedPlacement);
+                }
+            }
+            else
+            {
+                // nothing to do.
+            }
+        }
     }
 }

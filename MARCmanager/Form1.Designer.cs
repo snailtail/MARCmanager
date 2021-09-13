@@ -46,12 +46,15 @@ namespace MARCmanager
             this.columnTitle = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnPlacement = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.panel1 = new System.Windows.Forms.Panel();
             this.column653 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.column655 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.num653 = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num653)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog
@@ -185,16 +188,6 @@ namespace MARCmanager
             this.columnPlacement.Text = "Placement";
             this.columnPlacement.Width = 150;
             // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.listViewMain);
-            this.panel1.Location = new System.Drawing.Point(0, 48);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1223, 692);
-            this.panel1.TabIndex = 8;
-            // 
             // column653
             // 
             this.column653.Text = "MARC 653";
@@ -205,11 +198,46 @@ namespace MARCmanager
             this.column655.Text = "MARC 655";
             this.column655.Width = 180;
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.listViewMain);
+            this.panel1.Location = new System.Drawing.Point(0, 48);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1223, 692);
+            this.panel1.TabIndex = 8;
+            // 
+            // num653
+            // 
+            this.num653.Location = new System.Drawing.Point(482, 22);
+            this.num653.Name = "num653";
+            this.num653.Size = new System.Drawing.Size(45, 20);
+            this.num653.TabIndex = 9;
+            this.num653.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.num653.ValueChanged += new System.EventHandler(this.num653_ValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(429, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Max 653";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1214, 765);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.num653);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.cbPlacements);
             this.Controls.Add(this.chkUsePlacementDataFrom);
@@ -226,6 +254,7 @@ namespace MARCmanager
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.num653)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,6 +280,8 @@ namespace MARCmanager
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ColumnHeader column653;
         private System.Windows.Forms.ColumnHeader column655;
+        private System.Windows.Forms.NumericUpDown num653;
+        private System.Windows.Forms.Label label1;
     }
 }
 
